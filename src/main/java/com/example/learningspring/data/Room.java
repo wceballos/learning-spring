@@ -23,7 +23,7 @@ public class Room {
         return id;
     }
 
-    public void setId(long id) {
+    public void setRoomId(long id) {
         this.id = id;
     }
 
