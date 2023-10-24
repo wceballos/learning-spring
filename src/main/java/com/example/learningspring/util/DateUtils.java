@@ -14,13 +14,13 @@ public class DateUtils {
     public Date createDateFromDateString(String dateString){
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date;
-        if(StringUtils.hasText(dateString)){
-           try{
+        if(StringUtils.hasText(dateString)) {
+           try {
                date = format.parse(dateString);
            } catch (ParseException e) {
                date = new Date();
            }
-        }else{
+        } else {
             date = new Date();
         }
         return date;
