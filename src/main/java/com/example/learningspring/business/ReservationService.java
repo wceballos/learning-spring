@@ -9,6 +9,7 @@ import com.example.learningspring.data.RoomRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +63,38 @@ public class ReservationService {
         });
 
         return roomReservations;
+    }
+
+    public List<Guest> getGuests() {
+        List<Guest> guests = new ArrayList<>();
+        guestRepository.findAll().forEach(guests::add);
+
+        // Sort ascending by last name
+        guests.sort((Guest a, Guest b) -> {
+            if (a.getLastName().equals(b.getLastName())) {
+                return a.getFirstName().compareTo(b.getFirstName());
+            }
+            return a.getLastName().compareTo(b.getLastName());
+        });
+
+        return guests;
+    }
+
+    public void addGuest(Guest guest) {
+        if (guest == null) {
+            throw new RuntimeException("Guest cannot be null");
+        }
+        guestRepository.save(guest);
+    }
+
+    public List<Room> getRooms() {
+        List<Room> rooms = new ArrayList<>();
+        roomRepository.findAll().forEach(rooms::add);
+
+        // sort ascending
+        rooms.sort(Comparator.comparing(Room::getName));
+
+        return rooms;
     }
 }
 
